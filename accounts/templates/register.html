@@ -1,0 +1,53 @@
+{% extends 'account-base.html' %}
+
+{% block content %}
+
+<form action="#" method="post" class="border border-secondary rounded p-3 needs-validation" style="width: 350px;" novalidate>
+    <h4 class="fs-3 text-danger">Register</h4>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" placeholder="nwakachibueze@gmail.com" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please enter valid email!
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="text" class="form-label">Username</label>
+        <input type="text" class="form-control" id="text" placeholder="username" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please enter valid username!
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="password" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please enter password!
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="c_password" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" id="c_password" placeholder="confirm password" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please confirm password!
+        </div>
+    </div>
+    <div class="">
+        <button type="submit" class="btn btn-danger mb-3 ">Submit</button>
+        <small class=''>Already have an account, <a href="login.html">Login.</a></small>
+    </div>
+</form>
+
+{% endblock content %}
