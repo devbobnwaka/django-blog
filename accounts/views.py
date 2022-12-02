@@ -11,6 +11,8 @@ def form_fields(field_name, form, placeholder):
 
 # Create your views here.
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('/views/')
     form = UserCreationForm(request.POST or None)
     if form.is_valid():
         user = form.save()
@@ -26,6 +28,8 @@ def register(request):
     return render(request, 'register.html', context)
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('/views/')
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
