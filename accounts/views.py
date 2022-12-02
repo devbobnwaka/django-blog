@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm 
 
 
@@ -28,3 +29,11 @@ def login_view(request):
         "form": form
     }
     return render(request, "login.html", context)
+
+def logout_view(request):
+    if not request.user.is_authenticated:
+        return redirect("/login/")
+    if request.method == "POST":
+        logout(request)
+        return redirect("/login/")
+    return render(request, "logout.html", {})
