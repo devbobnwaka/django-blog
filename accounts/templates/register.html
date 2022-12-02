@@ -2,21 +2,19 @@
 
 {% block content %}
 
-<form action="#" method="post" class="border border-secondary rounded p-3 needs-validation" style="width: 350px;" novalidate>
+<form action="" method="post" class="border border-secondary rounded p-3 needs-validation" style="width: 350px;" novalidate>
+    {% csrf_token %}
     <h4 class="fs-3 text-danger">Register</h4>
     <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="email" placeholder="nwakachibueze@gmail.com" required>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
-        <div class="invalid-feedback">
-            Please enter valid email!
-        </div>
-    </div>
-    <div class="mb-3">
-        <label for="text" class="form-label">Username</label>
-        <input type="text" class="form-control" id="text" placeholder="username" required>
+        <label for="id_username" class="form-label ">
+            {{ form.username.label }}
+            {% if form.username.errors%}
+            <span class="text-danger">- {{form.username.errors.as_text}}</span>
+            {% endif %}
+        </label>
+        {{ form.username }}
+        {% comment %} <label for="text" class="form-label">Username</label> {% endcomment %}
+        {% comment %} <input type="text" class="form-control" id="text" placeholder="username" required> {% endcomment %}
         <div class="valid-feedback">
             Looks good!
         </div>
@@ -24,9 +22,14 @@
             Please enter valid username!
         </div>
     </div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="password" required>
+    <div class="mb-3">        
+        <label for="password1" class="form-label ">
+            {{ form.password1.label }} 
+            {% if form.password1.errors%}
+            <span class="text-danger"> {{form.password1.errors.as_text}}</span>
+            {% endif %}
+        </label>
+        {{ form.password1 }}
         <div class="valid-feedback">
             Looks good!
         </div>
@@ -35,8 +38,13 @@
         </div>
     </div>
     <div class="mb-3">
-        <label for="c_password" class="form-label">Confirm Password</label>
-        <input type="password" class="form-control" id="c_password" placeholder="confirm password" required>
+        <label for="password2" class="form-label ">
+            {{ form.password2.label }} 
+            {% if form.password2.errors%}
+            <span class="text-danger">- {{form.password2.errors.as_text}}</span>
+            {% endif %}
+        </label>
+        {{ form.password2 }}
         <div class="valid-feedback">
             Looks good!
         </div>
