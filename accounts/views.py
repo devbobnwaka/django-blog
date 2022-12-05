@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm 
@@ -12,12 +13,12 @@ def form_fields(field_name, form, placeholder):
 # Create your views here.
 def register(request):
     if request.user.is_authenticated:
-        return redirect('/views/')
+        return redirect(reverse('administrators:views'))
     form = UserCreationForm(request.POST or None)
     if form.is_valid():
         user = form.save()
         login(request, user)
-        return redirect('/views/')
+        return redirect(reverse('administrators:views'))
     context = {
         "form":form
     }        
@@ -29,13 +30,13 @@ def register(request):
 
 def login_view(request):
     if request.user.is_authenticated:
-        return redirect('/views/')
+        return redirect(reverse('administrators:views'))
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('/views/')
+            return redirect(reverse('administrators:views'))
     else:
         form = AuthenticationForm(request)
     form_fields('username', form, 'username')
@@ -47,8 +48,8 @@ def login_view(request):
 
 def logout_view(request):
     if not request.user.is_authenticated:
-        return redirect("/login/")
+        return redirect(reverse("accounts:login_view"))
     if request.method == "POST":
         logout(request)
-        return redirect("/login/")
+        return redirect(reverse("accounts:login_view"))
     return render(request, "logout.html", {})

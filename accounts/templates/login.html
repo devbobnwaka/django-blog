@@ -1,7 +1,7 @@
 {% extends 'account-base.html' %}
 
 {% block content %}
-<form action="." method="post" class="border border-secondary rounded p-3 needs-validation" style="width: 350px;" novalidate>
+<form action="{% url 'accounts:login_view' %}" method="post" class="border border-secondary rounded p-3 needs-validation" style="width: 350px;" novalidate>
     {% csrf_token %}
     <h4 class="fs-3 text-danger">Please Login </h4>
     {% if form.errors%}
@@ -43,7 +43,7 @@
     </div> 
     <div class="">
         <button type="submit" class="btn btn-danger mb-3 ">Login</button>
-        <small class=''>Don't have an account, <a href="signup.html">create account.</a></small>
+        <small class=''>Don't have an account, <a href="{% url 'accounts:register' %}">create account.</a></small>
     </div>
 </form>
 
