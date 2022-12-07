@@ -17,3 +17,17 @@ def slugify_instance_title(instance, save=False, new_slug=None):
     if save:
         instance.save()
     return instance
+
+
+def form_fields(field_name, form, placeholder):
+    form.fields[field_name].widget.attrs['class'] = 'form-control'
+    form.fields[field_name].widget.attrs['placeholder'] = placeholder
+    form.fields[field_name].label_classes = ('form-control',)
+    form.fields[field_name].widget.attrs['id'] = field_name
+
+
+def form_select_fields(field_name, form, placeholder):
+    form.fields[field_name].widget.attrs['class'] = 'form-select form-select-lg'
+    form.fields[field_name].widget.attrs['id'] = field_name
+    form.fields[field_name].widget.attrs['placeholder'] = placeholder
+    form.fields[field_name].label_classes = ('form-control',)

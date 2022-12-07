@@ -4,9 +4,15 @@
 
 <div class="container">
     <form action="" method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
          <div class="mb-3">
-             <label for="title" class="form-label">Title</label>
-             <input type="text" class="form-control" id="title" placeholder="Title" required>
+             <label for="title" class="form-label">
+                {{ form.title.label }}
+                {% if form.title.errors%}
+                <span class="text-danger">- {{form.title.errors.as_text}}</span>
+                {% endif %}
+             </label>
+            {{ form.title }}
              <div class="valid-feedback">
                  Looks good!
              </div>
@@ -15,8 +21,13 @@
              </div>
          </div>
          <div class="mb-3">
-             <label for="reporter" class="form-label">Reporter Name</label>
-             <input type="text" class="form-control" id="reporter" placeholder="Reporter Name" required>
+             <label for="reporter_name" class="form-label">
+                {{ form.reporter_name.label }}
+                {% if form.reporter_name.errors%}
+                <span class="text-danger">- {{form.reporter_name.errors.as_text}}</span>
+                {% endif %}
+             </label>
+                {{ form.reporter_name }}
              <div class="valid-feedback">
                  Looks good!
              </div>
@@ -25,13 +36,13 @@
              </div>
          </div>
          <div class="mb-3">
-             <label for="category" class="form-label">Category</label>
-             <select class="form-select form-select-lg " id="category" aria-label=".form-select-lg example" required>
-                 <option selected disabled value="">Select Category</option>
-                 <option value="1">One</option>
-                 <option value="2">Two</option>
-                 <option value="3">Three</option>
-             </select>
+             <label for="category" class="form-label">
+                {{ form.category.label }}
+                {% if form.category.errors%}
+                <span class="text-danger">- {{form.category.errors.as_text}}</span>
+                {% endif %}
+             </label>
+             {{ form.category }}
              <div class="valid-feedback">
                  Looks good!
              </div>
@@ -40,8 +51,13 @@
              </div>
          </div>
          <div class="mb-3">
-             <label for="content" class="form-label">Blog Content</label>
-             <textarea class="form-control" id="content" rows="8" placeholder="Blog content here..." required></textarea>
+             <label for="blog_content" class="form-label">
+                {{ form.blog_content.label }}
+                {% if form.blog_content.errors%}
+                <span class="text-danger">- {{form.blog_content.errors.as_text}}</span>
+                {% endif %}
+             </label>
+             {{ form.blog_content }}
              <div class="valid-feedback">
                  Looks good!
              </div>
@@ -50,8 +66,13 @@
              </div>
          </div>
          <div class="mb-3">
-             <label for="formFile" class="form-label">Blog Image</label>
-             <input class="form-control" type="file" id="formFile"  required>
+             <label for="image" class="form-label">
+                {{ form.image.label }}
+                {% if form.image.errors%}
+                <span class="text-danger">- {{form.image.errors.as_text}}</span>
+                {% endif %}
+             </label>
+             {{ form.image }}
              <div class="valid-feedback">
                  Looks good!
              </div>
