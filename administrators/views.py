@@ -11,9 +11,12 @@ def views(request):
 
 def create(request):
     form = BlogPostForm(request.POST or None)
+    category = dict(form.fields.get('category').choices) 
     context = {
         "form": form,
+        "cats": category,
     }
+    
     form_fields('title', form, 'Title')
     form_fields('reporter_name', form, 'Reporter name')
     form_fields('blog_content', form, 'Blog content here...')

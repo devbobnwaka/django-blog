@@ -41,21 +41,16 @@
         {% else  %}
         <div class="container-fluid bg-dark mb-3">
             <ul class="nav justify-content-center ">
+              {% for key, value in category.items  %}
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="index.html">Home</a>
-                  </li>
-                <li class="nav-item">
-                  <a class="nav-link active text-white" aria-current="page" href="category.html">News</a>
+                  <a class="nav-link text-white" href="/topic/{{value|lower}}/">{{ value }}</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">Link</a>
-                </li>
-              </ul>
+              {% endfor %}
+            </ul>
         </div>
         {% endif %}
+
+
         {% block content %}
         
         {% endblock content %}
