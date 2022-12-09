@@ -19,61 +19,58 @@
                 </tr>
               </thead>
               <tbody>
+                {% for blog in blogs %}
                 <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
+                  <th scope="row">{{forloop.counter0|add:blogs.start_index}}</th>
+                  <td>{{blog.title}}</td>
+                  <td>{{blog.get_category_display}}</td>
                   <td class="">
                     <div class="row m-0 p-0 justify-content-between">
-                        <a href="" class="col text-success border border-success rounded ">Edit</a>
-                        <a href="" class="col text-danger border border-danger rounded ">Delete</a>
+                        <a href="{{blog.get_absolute_url}}" class="col text-success border border-success rounded me-1">Edit</a>
+                        <a href=" {% url 'administrators:delete' slug=blog.slug %}" class="col text-danger border border-danger rounded ">Delete</a>
                     </div>
                   </td>
                 </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td class="">
-                      <div class="row m-0 p-0 justify-content-between">
-                          <a href="" class="col text-success border border-success rounded ">Edit</a>
-                          <a href="" class="col text-danger border border-danger rounded ">Delete</a>
-                      </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td class="">
-                      <div class="row m-0 p-0 justify-content-between">
-                          <a href="" class="col text-success border border-success rounded ">Edit</a>
-                          <a href="" class="col text-danger border border-danger rounded ">Delete</a>
-                      </div>
-                    </td>
-                </tr>
-
+                {% endfor %}
               </tbody>
         </table>
-        <div class="d-flex justify-content-center align-items-end>
-            <nav aria-label="Page navigation example ">
-                <ul class="pagination">
-                  <li class="page-item">
-                    <a class="page-link text-secondary" href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"><a class="page-link text-secondary" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link text-secondary" href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-            </nav>
-        </div>
+        <div class="d-flex justify-content-center align-items-end">
+          <nav aria-label="Page navigation example ">
+              <ul class="pagination">
+              {% if blogs.has_previous %}
+                <li class="page-item">
+                  <a class="page-link text-secondary" href="?page=1" aria-label="Previous">
+                    <span aria-hidden="true">first</span>
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link text-secondary" href="?page={{ blogs.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              {% endif %}
+
+                <li class="page-item"><a class="page-link text-secondary" href="#"><span class="current">
+                  Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}
+              </span></a></li>
+                
+              
+                {% if blogs.has_next %}
+                <li class="page-item">
+                  <a class="page-link text-secondary" href="?page={{ blogs.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link text-secondary" href="?page={{ blogs.paginator.num_pages }}"aria-label="Next">
+                    <span aria-hidden="true">last</span>
+                  </a>
+                </li>
+              {% endif %}
+
+              </ul>
+          </nav>
+      </div>
       </div>
     
 </div>

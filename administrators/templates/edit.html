@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <form action="" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+         <div class="mb-3">
+             <label for="title" class="form-label">
+                {{ form.title.label }}
+                {% if form.title.errors%}
+                <span class="text-danger">- {{form.title.errors.as_text}}</span>
+                {% endif %}
+             </label>
+            {{ form.title }}
+             <div class="valid-feedback">
+                 Looks good!
+             </div>
+             <div class="invalid-feedback">
+                 Please enter valid password!
+             </div>
+         </div>
+         <div class="mb-3">
+             <label for="reporter_name" class="form-label">
+                {{ form.reporter_name.label }}
+                {% if form.reporter_name.errors%}
+                <span class="text-danger">- {{form.reporter_name.errors.as_text}}</span>
+                {% endif %}
+             </label>
+                {{ form.reporter_name }}
+             <div class="valid-feedback">
+                 Looks good!
+             </div>
+             <div class="invalid-feedback">
+                 Please enter valid password!
+             </div>
+         </div>
+         <div class="mb-3">
+             <label for="category" class="form-label">
+                {{ form.category.label }}
+                {% if form.category.errors%}
+                <span class="text-danger">- {{form.category.errors.as_text}}</span>
+                {% endif %}
+             </label>
+             {{ form.category }}
+             <div class="valid-feedback">
+                 Looks good!
+             </div>
+             <div class="invalid-feedback">
+                 Please select a category!
+             </div>
+         </div>
+         <div class="mb-3">
+             <label for="blog_content" class="form-label">
+                {{ form.blog_content.label }}
+                {% if form.blog_content.errors%}
+                <span class="text-danger">- {{form.blog_content.errors.as_text}}</span>
+                {% endif %}
+             </label>
+             {{ form.blog_content }}
+             <div class="valid-feedback">
+                 Looks good!
+             </div>
+             <div class="invalid-feedback">
+                 Please enter valid password!
+             </div>
+         </div>
+         <div class="mb-3">
+             <label for="image" class="form-label">
+                {{ form.image.label }}
+                {% if form.image.errors%}
+                <span class="text-danger">- {{form.image.errors.as_text}}</span>
+                {% endif %}
+             </label>
+             {% comment %} {{ form.instance.image.url }} {% endcomment %}
+             {% comment %} {{ form.instance.image }} {% endcomment %}
+             {% comment %} {{ form.image.value.url }}
+             {{ form.image.value.path }}
+            {{ form.image.value.href }} {% endcomment %}
+            {% if form.image %}
+            <img class="card-img-top mb-3" src="{{form.instance.image.url}}" alt="Card image cap" style="height: 60vh;">
+            {% endif %}
+            <label for="image" class="form-label">Change Image</label>
+            {{ form.image }}
+             <div class="valid-feedback">
+                 Looks good!
+             </div>
+             <div class="invalid-feedback">
+                 Please enter valid password!
+             </div>
+         </div>
+         <button type="submit" class="btn btn-danger mb-3">Update</button>
+    </form>
+ </div>
+ 
+{% endblock content %}

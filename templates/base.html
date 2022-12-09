@@ -41,6 +41,9 @@
         {% else  %}
         <div class="container-fluid bg-dark mb-3">
             <ul class="nav justify-content-center ">
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'clients:index' %}">Home</a>
+              </li>
               {% for key, value in category.items  %}
                 <li class="nav-item">
                   <a class="nav-link text-white" href="/topic/{{value|lower}}/">{{ value }}</a>

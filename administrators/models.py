@@ -1,8 +1,9 @@
 from django.db import models
 from django.db.models.signals import pre_save, post_save
+from django.urls import reverse
 from django.conf import settings
 
-from .utils import slugify_instance_title
+from .utils import slugify_instance_title, unique_filename
 User = settings.AUTH_USER_MODEL
 
 # Create your models here.
@@ -23,9 +24,13 @@ class BlogPost(models.Model):
     reporter_name = models.CharField(max_length=100)
     category = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default=NEWS,)
     blog_content = models.TextField()
-    image = models.ImageField(upload_to='images')
+    image = models.ImageField(upload_to=unique_filename("images"))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse("administrators:edit", kwargs={"slug": self.slug})
+    
 
     def __str__(self):
         return self.title
