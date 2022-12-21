@@ -2,97 +2,83 @@
 
 {% block content %}
 
-<div class="container">
-            <h3 class="text-danger border-bottom border-secondary">News</h3>
+<div class="container ">
+        <h3 class="text-danger border-bottom border-secondary">{{ topic|title }}</h3>
         </div>
         <div class="container mt-2">
+            {% if not blogs %}
+                <div class="vh-100">
+                    Page is empty
+                </div>
+            {% else %}
             <div class="row" >
                 <div class="card col-sm-12 col-lg-9 order-first order-md-0 ">
-                    <img class="card-img-top " src="./BOB.jpg" alt="Card image cap" style="height: 60vh;">
+                    <img class="card-img-top " src="{{blog.image.url}}" alt="Card image cap" style="height: 60vh;">
                     <div class="card-body ">
-                      <h5 class="card-title">Card title A title is one or more words used before or after a person's name, in certain contexts.</h5>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <h5 class="card-title">{{blog.title}}</h5>
+                      {% comment %} <p class="card-text"><small class="text-muted">Last updated {{blog.updated_at | timesince}} ago</small></p> {% endcomment %}
+                      <p class="card-text"><small class="text-muted">Last updated {{blog.whenPublished }}</small></p>
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-3 ">
                     <ul class="list-group ps-0 mb-5">
-                        <a href="#" class="list-group-item list-group-item-action ps-1 pe-1">
-                            <div class="row justify-content-between">
-                                <h5 class="col-8">A title is one or more words used before </h5>
-                                <img src="./BOB.jpg" alt="" class="col-5" style="height: 60px; width:70px">
-                            </div>
-                            <small class="text-danger">Category</small>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action ps-1 pe-1">
-                            <div class="row justify-content-between">
-                                <h5 class="col-8">A title is one or more words used before </h5>
-                                <img src="./BOB.jpg" alt="" class="col-5" style="height: 60px; width:70px">
-                            </div>
-                            <small class="text-danger">Category</small>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action ps-1 pe-1">
-                            <div class="row justify-content-between">
-                                <h5 class="col-8">A title is one or more words used before </h5>
-                                <img src="./BOB.jpg" alt="" class="col-5" style="height: 60px; width:70px">
-                            </div>
-                            <small class="text-danger">Category</small>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action ps-1 pe-1">
-                            <div class="row justify-content-between">
-                                <h5 class="col-8">A title is one or more words used before </h5>
-                                <img src="./BOB.jpg" alt="" class="col-5" style="height: 60px; width:70px">
-                            </div>
-                            <small class="text-danger">Category</small>
-                        </a>
-                        
+                        {% for blog in blogs  %}
+                            <a href="?slug={{blog.slug}}" class="list-group-item list-group-item-action ps-1 pe-1">
+                                <div class="row justify-content-between">
+                                    <h5 class="col-8">{{blog.title}}</h5>
+                                    <img src="{{blog.image.url}}" alt="" class="col-5" style="height: 60px; width:70px">
+                                </div>
+                                <small class="text-danger">{{topic|capfirst}}</small>
+                            </a>
+                        {% endfor %}                        
                     </ul>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                          <li class="page-item">
-                            <a class="page-link text-secondary" href="#" aria-label="Previous">
-                              <span aria-hidden="true">&laquo;</span>
-                            </a>
-                          </li>
-                          <li class="page-item"><a class="page-link text-secondary" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
-                          <li class="page-item">
-                            <a class="page-link text-secondary" href="#" aria-label="Next">
-                              <span aria-hidden="true">&raquo;</span>
-                            </a>
-                          </li>
-                        </ul>
-                    </nav>
+                    <div class="d-flex justify-content-center align-items-end">
+                        <nav aria-label="Page navigation example ">
+                            <ul class="pagination">
+                            {% if blogs.has_previous %}
+                              <li class="page-item">
+                                <a class="page-link text-secondary" href="?page=1" aria-label="Previous">
+                                  <span aria-hidden="true">first</span>
+                                </a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link text-secondary" href="?page={{ blogs.previous_page_number }}" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                </a>
+                              </li>
+                            {% endif %}
+              
+                              <li class="page-item"><a class="page-link text-secondary" href="#"><span class="current">
+                                Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}
+                            </span></a></li>
+                              
+                            
+                              {% if blogs.has_next %}
+                              <li class="page-item">
+                                <a class="page-link text-secondary" href="?page={{ blogs.next_page_number }}" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                </a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link text-secondary" href="?page={{ blogs.paginator.num_pages }}"aria-label="Next">
+                                  <span aria-hidden="true">last</span>
+                                </a>
+                              </li>
+                            {% endif %}
+              
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
             <div class="row" >
                 <div class="col-sm-12 col-lg-9">
                     <p class="text-justify">
-                      “It was in the course of the greeting that he learnt of the soldier’s dilemma. He was told how the airlines refused to fly him due to his condition.
-        
-                      “A regular flier of commercial airlines, the governor who was moved by the soldier’s condition and the refusal by the commercial airline to fly him, decided to intervene. His intervention was as instantaneous as it was far-reaching,” the report added.
-        
-                      The governor, being moved by the officer’s dilemma, reportedly hired a private jet to fly the wounded Garba to Abuja.
-        
-                      In August 2021, the Chief of Army Staff, Lieutenant General Faruk Yahaya, launched the welfare flight at the air force base in Maiduguri for soldiers and officers of Operation Hadin Kai in the North-East who are on a pass and wish to go see their families.
-        
-                      The army chief said then that the development is part of efforts to cater for the welfare of troops who are proceeding on a pass to and from the theatre of operations to other parts of the country.
-        
-                      Kindly share this story:
-                      “It was in the course of the greeting that he learnt of the soldier’s dilemma. He was told how the airlines refused to fly him due to his condition.
-        
-                      “A regular flier of commercial airlines, the governor who was moved by the soldier’s condition and the refusal by the commercial airline to fly him, decided to intervene. His intervention was as instantaneous as it was far-reaching,” the report added.
-        
-                      The governor, being moved by the officer’s dilemma, reportedly hired a private jet to fly the wounded Garba to Abuja.
-        
-                      In August 2021, the Chief of Army Staff, Lieutenant General Faruk Yahaya, launched the welfare flight at the air force base in Maiduguri for soldiers and officers of Operation Hadin Kai in the North-East who are on a pass and wish to go see their families.
-        
-                      The army chief said then that the development is part of efforts to cater for the welfare of troops who are proceeding on a pass to and from the theatre of operations to other parts of the country.
-        
-                      Kindly share this story:
+                      {{blog.blog_content}}
                     </p>
                 </div>
             </div>
         </div>
+        {% endif %}
 
 {% endblock content %}

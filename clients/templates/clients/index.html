@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
+<div class="container vh-100">
   <div class="row">
         <div class="col-sm-12 col-lg-3 order ">
             <div class="list-group">
                 <a href="news.html" class="list-group-item list-group-item-action " >
+                  <div class="d-flex w-100 justify-content-between ">
+                    <small class="text-danger">Ads ...</small>
+                  </div>
+                  <p class="mb-1">Some placeholder content in a paragraph.</p>
+                </a>
+                {% comment %} <a href="#" class="list-group-item list-group-item-action">
                   <div class="d-flex w-100 justify-content-between">
                     <small class="text-danger">3 days ago</small>
                   </div>
@@ -15,21 +21,15 @@
                     <small class="text-danger">3 days ago</small>
                   </div>
                   <p class="mb-1">Some placeholder content in a paragraph.</p>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                  <div class="d-flex w-100 justify-content-between">
-                    <small class="text-danger">3 days ago</small>
-                  </div>
-                  <p class="mb-1">Some placeholder content in a paragraph.</p>
-                </a>
+                </a> {% endcomment %}
               </div>
         </div>
         <div class="card col-sm-12 col-lg-6 order-first order-md-0 ">
-            <img class="card-img-top " src="./BOB.jpg" alt="Card image cap">
+            <img class="card-img-top " src="{{blog.image.url}}" alt="Card image cap">
             <div class="card-body ">
-              <h5 class="card-title">Card title A title is one or more words used before or after a person's name, in certain contexts.</h5>
+              <h5 class="card-title">{{blog.title}}</h5>
               <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> -->
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              <p class="card-text"><small class="text-muted">Last updated {{blog.whenPublished}}</small></p>
             </div>
           </div>
         <!-- <div class="col-sm-12 col-md-5 col-lg-4 order-sm-first order-md-0 border border-danger">
@@ -38,36 +38,54 @@
         <div class="col-sm-12 col-lg-3 ">
             <h5 class="text-danger">Top news</h5>
             <ul class="list-group ps-0">
-                <a href="#" class="list-group-item list-group-item-action ps-1 pe-1">
+              {% for blog in blogs  %}
+                <a href="/topic/{{blog.get_category_display|lower}}/{{blog.category}}?slug={{blog.slug}}" class="list-group-item list-group-item-action ps-1 pe-1">
                     <div class="row justify-content-between">
-                        <h5 class="col-8">A title is one or more words used before </h5>
-                        <img src="./BOB.jpg" alt="" class="col-5" style="height: 60px; width:70px">
+                        <h5 class="col-8">{{blog.title}}</h5>
+                        <img src="{{blog.image.url}}" alt="" class="col-5" style="height: 60px; width:70px">
                     </div>
-                    <small class="text-danger">Category</small>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action ps-1 pe-1">
-                    <div class="row justify-content-between">
-                        <h5 class="col-8">A title is one or more words used before </h5>
-                        <img src="./BOB.jpg" alt="" class="col-5" style="height: 60px; width:70px">
-                    </div>
-                    <small class="text-danger">Category</small>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action ps-1 pe-1">
-                    <div class="row justify-content-between">
-                        <h5 class="col-8">A title is one or more words used before </h5>
-                        <img src="./BOB.jpg" alt="" class="col-5" style="height: 60px; width:70px">
-                    </div>
-                    <small class="text-danger">Category</small>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action ps-1 pe-1">
-                    <div class="row justify-content-between">
-                        <h5 class="col-8">A title is one or more words used before </h5>
-                        <img src="./BOB.jpg" alt="" class="col-5" style="height: 60px; width:70px">
-                    </div>
-                    <small class="text-danger">Category</small>
-                </a>
-                
+                    <small class="text-danger">{{blog.get_category_display}}</small>
+                </a>  
+              {% endfor %}              
             </ul>
+
+            <div class="d-flex justify-content-center align-items-end mt-5">
+              <nav aria-label="Page navigation example ">
+                  <ul class="pagination">
+                  {% if blogs.has_previous %}
+                    <li class="page-item">
+                      <a class="page-link text-secondary" href="?page=1" aria-label="Previous">
+                        <span aria-hidden="true">first</span>
+                      </a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link text-secondary" href="?page={{ blogs.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                  {% endif %}
+    
+                    <li class="page-item"><a class="page-link text-secondary" href="#"><span class="current">
+                      Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}
+                  </span></a></li>
+                    
+                  
+                    {% if blogs.has_next %}
+                    <li class="page-item">
+                      <a class="page-link text-secondary" href="?page={{ blogs.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link text-secondary" href="?page={{ blogs.paginator.num_pages }}"aria-label="Next">
+                        <span aria-hidden="true">last</span>
+                      </a>
+                    </li>
+                  {% endif %}
+    
+                  </ul>
+              </nav>
+          </div>
         </div>
     </div>
 </div>

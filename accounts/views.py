@@ -51,5 +51,5 @@ def logout_view(request):
         return redirect(reverse("accounts:login_view"))
     if request.method == "POST":
         logout(request)
-        return redirect(reverse("accounts:login_view"))
+        return redirect(reverse("clients:index"))
     return render(request, "logout.html", {})
