@@ -29,7 +29,7 @@ DEBUG = str(os.environ.get('DJANGO_DEBUG')) == '1'
 # ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = []
 if not DEBUG:
-    ALLOWED_HOSTS += [os.environ.get('DJANGO_ALLOWED_HOSTS')]
+    ALLOWED_HOSTS += [os.environ.get('DJANGO_ALLOWED_HOST')]
 
 
 # Application definition
