@@ -9,7 +9,7 @@ from .models import BlogPost
 # Create your views here.
 @login_required
 def views(request):
-    blogs = BlogPost.objects.all()
+    blogs = BlogPost.objects.all().order_by('-id')
     paginator = Paginator(blogs, 10)
     
     page_number = request.GET.get('page')
