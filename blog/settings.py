@@ -27,7 +27,7 @@ DEBUG = str(os.environ.get('DEBUG')) == '1'
 
 ALLOWED_HOSTS = []
 if not DEBUG:
-    ALLOWED_HOSTS += ['127.0.0.1']
+    ALLOWED_HOSTS += ['127.0.0.1', 'localhost', 'django-blog-production.up.railway.app']
 
 
 # Application definition
