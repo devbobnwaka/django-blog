@@ -27,7 +27,7 @@ DEBUG = str(os.environ.get('DJANGO_DEBUG')) == '1'
 # DEBUG = False
 
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1:8000' , os.environ.get('DJANGO_ALLOWED_HOST')]
 if not DEBUG:
     ALLOWED_HOSTS += [os.environ.get('DJANGO_ALLOWED_HOST')]
 
