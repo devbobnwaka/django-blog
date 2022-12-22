@@ -23,13 +23,13 @@ CSRF_TRUSTED_ORIGINS = ['https://*.django-blog-production.up.railway.app','https
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.environ.get('DEBUG') == 1
-DEBUG = True
+DEBUG = str(os.environ.get('DEBUG')) == '1'
+# DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'django-blog-production.up.railway.app']
-# if not DEBUG:
-#     ALLOWED_HOSTS += ['127.0.0.1', 'localhost', 'django-blog-production.up.railway.app']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
+if not DEBUG:
+    ALLOWED_HOSTS += ['127.0.0.1', 'localhost', 'django-blog-production.up.railway.app']
 
 
 # Application definition
